@@ -1,14 +1,13 @@
 package com.example.cameldemo.api;
 
-import com.example.cameldemo.domain.Product;
+import com.example.cameldemo.domain.Cart;
+import com.example.cameldemo.domain.Order;
 import org.apache.camel.ProducerTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
-
 import static com.example.cameldemo.camel.route.PlaceOrderRoute.PLACE_INIT_ROUTE;
-import static com.example.cameldemo.camel.route.PlaceOrderRoute.PLACE_ORDER_ROUTE;
 
 @RestController
 public class CamelApi {
@@ -19,16 +18,16 @@ public class CamelApi {
         this.producerTemplate = producerTemplate;
     }
 
-    @GetMapping("/api/camel")
-    public void camelProcess() {
+    @PostMapping("/api/camel")
+    public Order camelProcess(@RequestBody Cart cart) {
         producerTemplate.start();
 
-        Product product = producerTemplate.requestBody(PLACE_INIT_ROUTE,
-                UUID.randomUUID().toString(), // id
-                Product.class);
-
-        System.out.println(product);
+        final Order order = producerTemplate.requestBody(PLACE_INIT_ROUTE,
+                cart,
+                Order.class);
 
         producerTemplate.stop();
+
+        return order;
     }
 }

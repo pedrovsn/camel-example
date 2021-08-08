@@ -1,7 +1,5 @@
 package com.example.cameldemo.domain;
 
-import java.math.BigDecimal;
-
 public class Product {
 
     private final String id;

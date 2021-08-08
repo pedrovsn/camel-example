@@ -5,9 +5,9 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "OrderClient", url = "http://localhost:8080/api")
-public interface OrderClient {
+@FeignClient(name = "NotificationClient", url = "http://localhost:8080/api")
+public interface NotificationClient {
 
-    @PostMapping(path = "/order")
-    Order placeOrder(@RequestBody Order order);
+    @PostMapping(path = "/notification")
+    void notificate(@RequestBody Order order);
 }

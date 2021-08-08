@@ -17,7 +17,7 @@ public class OrderApi {
     }
 
     @PostMapping("/api/order")
-    public Order placeOrder(@RequestBody Cart cart) {
-        return orderService.placeOrder(cart);
+    public Order placeOrder(@RequestBody Order order) {
+        return orderService.placeOrder(order);
     }
 }
